@@ -1,0 +1,35 @@
+/* you are free to change any style you want  */
+
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: azure;
+}
+.main{
+    background-color: rgb(70, 74, 77);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 2rem;
+
+}
+
+h1{
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+h3{
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+#my-signin2{
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
