@@ -1,0 +1,126 @@
+#include <iostream>
+#include <fstream>
+#include <string.h>
+
+using namespace std;
+
+
+
+
+struct wncc//a structure is created to a data set
+{
+	string name;//to store the name of the session
+	int time;//starting time of the session
+	int duration;//duration of the session
+
+	wncc(){//constructor
+		this->name = " ";
+		this->time = 0;
+		this->duration = 0;
+	}	
+
+	wncc(string name,int time,int duration){//constructor
+		this->name = name;
+		this->time = time;
+		this->duration = duration;
+	}	
+
+	void operator =(wncc b){
+		this->name = b.name;
+		this->time = b.time;
+		this->duration = b.duration;
+
+	}
+
+
+};
+
+
+
+int main()
+{
+	string file = "schedule.txt";
+
+	string arr[100];//a temporary array of stiring to store the line
+
+	ifstream fin;//creation of ifstream class object to read the file
+	fin.open(file);//opening the file
+
+	string line;//a varible to store the line
+	int count = 0;//to count the number of sessions
+
+	for(int i = 0;fin;i++){//loop till there is no line left to read
+
+		getline(fin, line);//extracting the line from the file
+		arr[i] = line;
+		count++;
+
+
+	}
+
+	count--;//due some bug in the fstream library this is to be done so that 'count' dosent have an extra line as the previous line;
+	
+	wncc list[count];//to store the data in the format of wncc datatype
+
+	//extracting name ,time and duration from the line
+	for(int i = 0;i < count;i++){
+		line = arr[i];//to store the line
+
+		int pos = line.find(' ');//finding the position of the first space between name and time
+
+		list[i].name = line.substr(0,pos);//storing the name in the list arr
+		
+		line = line.substr(pos+1);//removing name of the session and setting the line to the rest of the string 
+
+		pos = line.find(' ');//againg finding the space now inbetween the time and duration
+
+		list[i].time = stoi(line.substr(0,pos));//extracting word till the next space and converting it to integer using string.h class function "stoi"
+
+		line = line.substr(pos+1);//
+
+		list[i].duration = stoi(line);//putting the last word as the duration
+	}
+
+	fin.close();
+
+	//now we have got all the data needed to go further in the program
+
+	//lets sort the data we have with respect to time (using bubble sort)
+
+	wncc temp;
+	for(int i = 0;i < count;i++){
+		for(int j = 0;j < count - i - 1;j++){
+			if(list[j].time > list[j+1].time){
+				temp = list[j];
+				list[j] = list[j+1];
+				list[j+1] = temp;
+			}
+		}
+	}
+
+
+	int pair = 0;
+	for(int i = 0;i < count-1;i++){//finding the pair of similar timings 
+		
+		if(list[i].time == list[i+1].time){
+			//list[i+1].name = "NULL"; //if you want to put this event as null
+			pair++;
+		}
+
+	}
+
+	
+	
+	cout<<count - pair<<endl;
+
+
+	return 0;
+}
+
+
+
+
+
+
+
+
